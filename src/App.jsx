@@ -14,15 +14,21 @@ function App() {
     fetch(URL, { method: "GET" })
       .then(
         (response) =>
-          new Promise((resolve) =>
-            setTimeout(() => {
-              resolve(response.json());
-            }, 3000)
+          new Promise((resolve) => setTimeout(() => {
+            resolve(response.json());
+            }, 2000)
           )
       )
       .then((data) => {
         setIsLoading(false);
-        const { temperature_2m,temperature_2m_member01 , temperature_2m_member02 , temperature_2m_member03 , temperature_2m_member04 , time} = data.hourly;
+
+        const { 
+          temperature_2m,
+          temperature_2m_member01 ,
+          temperature_2m_member02 , 
+          temperature_2m_member03 , 
+          temperature_2m_member04 , 
+          time} = data.hourly;
 
         setMeteoData({
           standard: temperature_2m,
@@ -50,29 +56,29 @@ function App() {
     <div>
       <h1>Fetch</h1>
       {meteoData && (
-        <table>
-          <thead>
-            <tr>
-              <th>standard</th>
-              <th>day1</th>
-              <th>day2</th>
-              <th>day3</th>
-              <th>day4</th>
-              <th>time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {meteoData.standard.map((_, i) => (
-              <tr key={i}>
-                <td>{meteoData.time[i]}</td>
-                <td>{meteoData.standard[i]}</td>
-                <td>{meteoData.day1[i]}</td>
-                <td>{meteoData.day2[i]}</td>
-                <td>{meteoData.day3[i]}</td>
-                <td>{meteoData.day4[i]}</td>
+          <table border="1px solid black">
+            <thead>
+              <tr>
+                <th>time</th>
+                <th>standard</th>
+                <th>day1</th>
+                <th>day2</th>
+                <th>day3</th>
+                <th>day4</th>
               </tr>
+            </thead>
+            <tbody>
+              {meteoData.standard.map((_, i) => (
+                <tr key={i}>
+                  <td>{meteoData.time[i]}</td>
+                  <td>{meteoData.standard[i]}</td>
+                  <td>{meteoData.day1[i]}</td>
+                  <td>{meteoData.day2[i]}</td>
+                  <td>{meteoData.day3[i]}</td>
+                  <td>{meteoData.day4[i]}</td>
+                </tr>
             ))}
-          </tbody>
+            </tbody>
         </table>
       )}
     </div>
